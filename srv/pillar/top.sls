@@ -1,5 +1,5 @@
 base:
   '*':
     - openssh
-  'dev_postgres*':
+  'dev_postgre*':
     - postgres-dev
