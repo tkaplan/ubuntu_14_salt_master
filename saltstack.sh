@@ -43,7 +43,7 @@ cp ./srv/salt-nfs/* /srv/salt-nfs
 
 # Replace our pg_hba.conf file
 echo "Replaced pg_hba.conf file in /srv/salt-nfs/postgres/pg_hba.conf"
-perl -p -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < ./srv/salt-nfs/postgres/pg_hba.conf > /salt/salt-nfs/postgres/pg_hba.conf
+perl -p -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < ./srv/salt-nfs/postgres/pg_hba.conf > /srv/salt-nfs/postgres/pg_hba.conf
 
 echo "Creating default master"
 mv /etc/salt/master /etc/salt/master-default
