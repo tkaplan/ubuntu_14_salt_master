@@ -24,13 +24,13 @@ fi
 echo "Making /srv/salt-nfs"
 mkdir -p /srv/salt-nfs/postgres
 
-cp -p ~/.ssh/id_rsa.pub /srv/salt-nfs/authorized_keys
+cp ~/.ssh/id_rsa.pub /srv/salt-nfs/authorized_keys
 echo "Ssh key added"
 
 # Install dependencies
 add-apt-repository ppa:saltstack/salt
-apt-get install software-properties-common
-apt-get install python-software-properties
+apt-get install -y software-properties-common
+apt-get install -y python-software-properties
 apt-get update
 apt-get install -y salt-master salt-syndic salt-cloud salt-ssh salt-api
 
