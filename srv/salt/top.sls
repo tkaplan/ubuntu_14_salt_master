@@ -6,3 +6,4 @@ base:
     - node-4
   'dev_postgre*':
     - postgres
+    - ritzel-postgres

@@ -11,6 +11,10 @@ echo "What is the ip of your salt master?"
 read salt_master_ip
 export SALT_MASTER_IP=$salt_master_ip
 
+echo "What do you want your postgres db password to be?"
+read postgres_pass
+export POSTGRES_PASS=$postgres_pass
+
 if [ -f ~/.ssh/id_rsa.pub ]; then
   echo "Detected ssh keys. We are using this for ssh key access to your salt minions."
 else
@@ -50,5 +54,9 @@ mv /etc/salt/master /etc/salt/master-default
 
 # Replace our master
 perl -p -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < ./master > /etc/salt/master
+
+perl -p -e 's/\$\{([^}]+)\}/defined $ENV{$1} ? $ENV{$1} : $&/eg' < ./srv/salt-nfs/postgres/ritzel-postgres-conf.sh > /srv/salt-nfs/postgres/ritzel-postgres-conf.sh
+
+service postgresql restart
 
 echo "Setup complete. sudo pkill salt-master to stop. sudo salt-master -d to start."
