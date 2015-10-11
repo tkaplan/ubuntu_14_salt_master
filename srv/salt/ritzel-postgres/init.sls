@@ -1,4 +1,4 @@
-nclude:
+include:
   - postgres
 
 /tmp/pg_hba.conf:
