@@ -15,27 +15,26 @@ echo "What do you want your postgres db password to be?"
 read postgres_pass
 export POSTGRES_PASS=$postgres_pass
 
-if [ -f ~/.ssh/id_rsa.pub ]; then
+if [ -f /home/$USER/.ssh/id_rsa.pub ]; then
   echo "Detected ssh keys. We are using this for ssh key access to your salt minions."
 else
   echo "Lets generate an ssh key for you! Press anything to continue."
-  echo "Please choose the default path for your id_rsa.pub file so we can retrieve"
-  echo "the correct public key to dispatch to salt minions"
   read anything
-  ssh-keygen -t rsa
+  echo /home/$USER/.ssh/id_rsa | ssh-keygen -t rsa
+  echo "Public key path is /home/$USER/.ssh/id_rsa"
 fi
 
 echo "Making /srv/salt-nfs"
 mkdir -p /srv/salt-nfs/postgres
 
-cp ~/.ssh/id_rsa.pub /srv/salt-nfs/authorized_keys
+cp /home/$USER/.ssh/id_rsa.pub /srv/salt-nfs/authorized_keys
 echo "Ssh key added"
 
 # Install dependencies
 add-apt-repository ppa:saltstack/salt
+apt-get update
 apt-get install -y software-properties-common
 apt-get install -y python-software-properties
-apt-get update
 apt-get install -y salt-master salt-syndic salt-cloud salt-ssh salt-api
 
 # Make required directories
